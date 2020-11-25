@@ -1,13 +1,6 @@
-### 🚧🚧 Looking for collaborators 🚧🚧
-
-See this [issue](https://github.com/react-native-datetimepicker/datetimepicker/issues/313)
-
-This repository was moved out of the react native community GH organization, in accordance to [this proposal](https://github.com/react-native-community/discussions-and-proposals/issues/176).
-The module is still published on `npm` under the old namespace (as documented) but will be published under a new namespace soon, with a major version bump.
-
 # React Native DateTimePicker
 
-![CircleCI Status][circle-ci-status]
+[![CircleCI Status][circle-ci-badge]][circle-ci-status]
 ![Supports Android and iOS][support-badge]
 ![MIT License][license-badge]
 [![Lean Core Badge][lean-core-badge]][lean-core-issue]
@@ -47,7 +40,7 @@ React Native date & time picker component for iOS, Android and Windows.
     - [Basic usage with state](#basic-usage-with-state)
   - [Props](#props)
     - [`mode` (`optional`)](#mode-optional)
-    - [`display` (`optional`)](#display-optional)
+    - [`display` (`optional`, `Android only`)](#display-optional-android-only)
     - [`onChange` (`optional`)](#onchange-optional)
     - [`value` (`required`)](#value-required)
     - [`maximumDate` (`optional`)](#maximumdate-optional)
@@ -76,7 +69,7 @@ React Native date & time picker component for iOS, Android and Windows.
 
 ## Requirements
 
-- Xcode >= 11.6
+- Xcode >= 10
 
 ## Expo users notice
 
@@ -199,23 +192,16 @@ List of possible values:
 <RNDateTimePicker mode="time" />
 ```
 
-#### `display` (`optional`)
+#### `display` (`optional`, `Android only`)
 
-Defines the visual display of the picker. The default value is `"default"`.
+Defines the visual display of the picker for Android and will be ignored for iOS.
 
-List of possible values for Android
+List of possible values:
 
-- `"default"` - Show a default date picker (spinner/calendar/clock) based on `mode` and Android version.
+- `"default"` - Show a default date picker (spinner/calendar/clock) based on `mode` and android version.
 - `"spinner"`
 - `"calendar"` (only for `date` mode)
 - `"clock"` (only for `time` mode)
-
-List of possible values for iOS (maps to [preferredDatePickerStyle](https://developer.apple.com/documentation/uikit/uidatepicker/3526124-preferreddatepickerstyle?changes=latest_minor&language=objc))
-
-- `"default"` - Automatically pick the best style available for the current platform & mode.
-- `"spinner"` - the usual appearance with a wheel from which you choose values
-- `"compact"` - Affects only iOS 14 and later. Will fall back to "spinner" if not supported.
-- `"inline"` - Affects only iOS 14 and later. Will fall back to "spinner" if not supported.
 
 ```js
 <RNDateTimePicker display="spinner" />
@@ -304,7 +290,7 @@ Indicates which day is shown as the first day of the week.
 
 #### `textColor` (`optional`, `iOS only`)
 
-Allows changing of the textColor of the date picker. Has effect only when `display` is `"spinner"`.
+Allows changing of the textColor of the date picker.
 
 ```js
 <RNDateTimePicker textColor="red" />
@@ -700,8 +686,8 @@ Add `PackageProviders().Append(winrt::DateTimePicker::ReactPackageProvider());` 
 1. Run `npm run start:ios` or `npm run start:android` or `npm run start:windows` (or `yarn run start:windows`)
 
 [circle-ci-badge]: https://img.shields.io/circleci/project/github/react-native-community/datetimepicker/master.svg?style=flat-square
-[circle-ci-status]: https://circleci.com/gh/react-native-datetimepicker/datetimepicker.svg?style=svg
-[support-badge]: https://img.shields.io/badge/platforms-android%20%7C%20ios%20%7C%20windows-lightgrey.svg?style=flat-square
+[circle-ci-status]: https://circleci.com/gh/react-native-community/workflows/datetimepicker/tree/master
+[support-badge]: https://img.shields.io/badge/platforms-android%20|%20ios-lightgrey.svg?style=flat-square
 [license-badge]: https://img.shields.io/npm/l/@react-native-community/slider.svg?style=flat-square
 [lean-core-badge]: https://img.shields.io/badge/Lean%20Core-Extracted-brightgreen.svg?style=flat-square
 [lean-core-issue]: https://github.com/facebook/react-native/issues/23313

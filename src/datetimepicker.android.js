@@ -10,12 +10,11 @@ import {
   TIME_SET_ACTION,
   DISMISS_ACTION,
   NEUTRAL_BUTTON_ACTION,
-  ANDROID_DISPLAY,
+  DISPLAY,
   ANDROID_MODE,
 } from './constants';
 import pickers from './picker';
 import invariant from 'invariant';
-import {useEffect} from 'react';
 
 import type {AndroidEvent, AndroidNativeProps} from './types';
 
@@ -23,8 +22,8 @@ function validateProps(props: AndroidNativeProps) {
   const {mode, value, display} = props;
   invariant(value, 'A date or time should be specified as `value`.');
   invariant(
-    !(display === ANDROID_DISPLAY.calendar && mode === ANDROID_MODE.time) &&
-      !(display === ANDROID_DISPLAY.clock && mode === ANDROID_MODE.date),
+    !(display === DISPLAY.calendar && mode === ANDROID_MODE.time) &&
+      !(display === DISPLAY.clock && mode === ANDROID_MODE.date),
     `display: ${display} and mode: ${mode} cannot be used together.`,
   );
 }
@@ -75,12 +74,6 @@ export default function RNDateTimePicker(props: AndroidNativeProps) {
       });
       break;
   }
-
-  useEffect(() => {
-    // This effect runs on unmount, and will ensure the picker is closed.
-    // This allows for controlling the opening state of the picker through declarative logic in jsx.
-    return () => (pickers[mode] ?? pickers[MODE_DATE]).dismiss();
-  }, [mode]);
 
   picker.then(
     function resolve({action, day, month, year, minute, hour}) {

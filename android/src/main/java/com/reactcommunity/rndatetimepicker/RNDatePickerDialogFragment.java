@@ -115,23 +115,16 @@ public class RNDatePickerDialogFragment extends DialogFragment {
           Context activityContext,
           @Nullable OnDateSetListener onDateSetListener) {
 
+   if (args != null && args.containsKey(RNConstants.ARG_LOCALE)) {
+      // for calendar's month and days of the week (NOTE: must be set before Calendar instance)
+      activityContext.getResources().getConfiguration().setLocale(getLocale(args));
+    }        
+
     final Calendar c = Calendar.getInstance();
 
     DatePickerDialog dialog = getDialog(args, activityContext, onDateSetListener);
 
-
-   if (args != null && args.containsKey(RNConstants.ARG_LOCALE)) {
-      // for calendar's month and days of the week (NOTE: must be set before Calendar instance)
-      activityContext.getResources().getConfiguration().setLocale(getLocale(args));
-    }
-
-    if (args != null && args.containsKey(RNConstants.ARG_NEUTRAL_BUTTON_LABEL)) {
-      dialog.setButton(DialogInterface.BUTTON_NEUTRAL, args.getString(RNConstants.ARG_NEUTRAL_BUTTON_LABEL), mOnNeutralButtonActionListener);
-    }
-
-    final DatePicker datePicker = dialog.getDatePicker();
-    
-    if (args != null) {
+     if (args != null) {
       // for dialog buttons
       if (args.containsKey(RNConstants.ARG_POSITIVE_BUTTON_LABEL)) {
         dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, args.getString(RNConstants.ARG_POSITIVE_BUTTON_LABEL), dialog);
@@ -140,6 +133,12 @@ public class RNDatePickerDialogFragment extends DialogFragment {
         dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, args.getString(RNConstants.ARG_NEGATIVE_BUTTON_LABEL), dialog);
       }
     }
+
+    if (args != null && args.containsKey(RNConstants.ARG_NEUTRAL_BUTTON_LABEL)) {
+      dialog.setButton(DialogInterface.BUTTON_NEUTRAL, args.getString(RNConstants.ARG_NEUTRAL_BUTTON_LABEL), mOnNeutralButtonActionListener);
+    }
+
+    final DatePicker datePicker = dialog.getDatePicker();
 
     if (args != null && args.containsKey(RNConstants.ARG_MINDATE)) {
       // Set minDate to the beginning of the day. We need this because of clowniness in datepicker
@@ -189,7 +188,7 @@ public class RNDatePickerDialogFragment extends DialogFragment {
     mOnNeutralButtonActionListener = onNeutralButtonActionListener;
   }
 
-   static Locale getLocale(Bundle args) {
+  static Locale getLocale(Bundle args) {
     String locale = args.getString(RNConstants.ARG_LOCALE);
     String[] separated = locale.split("-");
     return new Locale(separated[0], separated[1]);

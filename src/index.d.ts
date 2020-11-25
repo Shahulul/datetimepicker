@@ -4,9 +4,7 @@ import {NativeMethods, ViewProps} from 'react-native';
 type IOSMode = 'date' | 'time' | 'datetime' | 'countdown';
 type AndroidMode = 'date' | 'time';
 type Display = 'spinner' | 'default' | 'clock' | 'calendar';
-type IOSDisplay = 'default' | 'compact' | 'inline' | 'spinner';
 type MinuteInterval = 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30;
-type DAY_OF_WEEK = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type Event = SyntheticEvent<
   Readonly<{
@@ -95,11 +93,6 @@ export type IOSNativeProps = Readonly<
      * The date picker text color.
      */
     textColor?: string;
-
-    /**
-     * Sets the preferredDatePickerStyle for picker
-     */
-    display?: IOSDisplay;
   }
 >;
 
@@ -151,41 +144,6 @@ export type NativeRef = {
   current: Ref<RCTDateTimePickerNative> | null;
 };
 
-export type WindowsDatePickerChangeEvent = {
-  nativeEvent: {
-    newDate: number;
-  };
-};
-
-export type WindowsNativeProps = Readonly<
-  BaseProps &
-    DateOptions &
-    TimeOptions & {
-      /**
-       * The display options.
-       */
-      display?: Display;
-
-      onChange?: (event: WindowsDatePickerChangeEvent, date?: Date) => void;
-      placeholderText?: string;
-      dateFormat?:
-        | 'day month year'
-        | 'dayofweek day month'
-        | 'longdate'
-        | 'shortdate';
-      dayOfWeekFormat?:
-        | '{dayofweek.abbreviated(2)}'
-        | '{dayofweek.abbreviated(3)}'
-        | '{dayofweek.full}';
-      firstDayOfWeek?: DAY_OF_WEEK;
-      timeZoneOffsetInSeconds?: number;
-      is24Hour?: boolean;
-      minuteInterval?: number;
-    }
->;
-
-declare const RNDateTimePicker: FC<
-  IOSNativeProps | AndroidNativeProps | WindowsNativeProps
->;
+declare const RNDateTimePicker: FC<IOSNativeProps | AndroidNativeProps>;
 
 export default RNDateTimePicker;
